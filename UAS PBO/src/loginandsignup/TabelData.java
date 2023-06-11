@@ -829,6 +829,10 @@ public class TabelData extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
+    public void removeData(int rowIndex) {
+        DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
+        model.removeRow(rowIndex);
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Login LoginFrame = new Login();
         LoginFrame.setVisible(true);
@@ -925,7 +929,10 @@ public class TabelData extends javax.swing.JFrame {
             }catch(SQLException e){
                 JOptionPane.showMessageDialog(this,"Terjadi Kesalahan");
             }finally{
-                loadData();
+                int selectedRowIndex = dataTable.getSelectedRow();
+                if (selectedRowIndex != -1) {
+                    removeData(selectedRowIndex);
+                }
             }
         }
         if(question == JOptionPane.CANCEL_OPTION){
